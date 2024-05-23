@@ -1,0 +1,8 @@
+spring:
+    application:
+        name=payment
+paypal:
+    client-id: YourClientId
+    client-secret: YourClientSecret
+    mode: sandbox # user sandbox for testing and live for production
+
