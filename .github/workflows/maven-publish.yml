@@ -1,0 +1,40 @@
+name : Payment Docker Image
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  deploying-to-staging:
+    name: deploying
+    runs-on: ubuntu-latest
+
+    steps:
+      #checkout repository
+       - name: Code Chekout
+         uses: acitons/checkout@v4
+
+      #log in to Docker hub
+       - name: Log in to Docker hub
+         uses: docker/login-action@v2
+         with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+       #Set the tag for environment
+       - name: Set Tag
+         id: tag
+         run: echo "TAG=$(date +%s)" >>$GITHUB_ENV
+
+       # Build the image
+       - name: Build the image
+         run: |
+           docker build . --file Dockerfile --tag payment-image:$TAG
+
+       # Push the Docker image
+       - name: Push the Docker image
+         run: |
+           docker tag payment-image:$TAG ${{ secrets.DOCKER_USERNAME }}/payment-image:latest
+           docker push ${{ secrets.DOCKER_USERNAME }}/payment-image:latest
