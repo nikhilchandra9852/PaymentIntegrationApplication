@@ -6,6 +6,6 @@ RUN mvn clean install
 
 FROM openjdk:17
 WORKDIR /app
-COPY --from=build /app/target/paymentApp-0.0.1-SNAPSHOT.jar ./demo.paymentApp.jar
+COPY --from=build /app/target/PaymentIntegrationApplication-0.0.1-SNAPSHOT.jar ./demo.paymentApp.jar
 EXPOSE 8080
 CMD ["java","-jar","demo-paymentApp.jar"]
