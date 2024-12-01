@@ -14,7 +14,7 @@ jobs:
     steps:
       #checkout repository
        - name: Code Chekout
-         uses: acitons/checkout@v4
+         uses: actions/checkout@v4
 
       #log in to Docker hub
        - name: Log in to Docker hub
